@@ -44,7 +44,6 @@ class LinkedList:
             seeker = seeker.next
         prev_node.next = None
         print("Node Deleted Successfully")
-        seeker = None
 
 # ----------------------------------------------------------------------------------------------------------------------
     # delete Node at target index
@@ -58,9 +57,8 @@ class LinkedList:
                 print("deleted via if statement")
                 print("Deleted Node Successfully")
                 break
-        prev_node.next= seeker.next
+        prev_node.next = seeker.next
         print("Node '" + str(seeker.node_id) + "' Deleted Successfully")
-        seeker = None
 
 # ----------------------------------------------------------------------------------------------------------------------
     # this method will take a target value and add a new node there pushing all the nodes forward
@@ -73,12 +71,11 @@ class LinkedList:
             seeker = seeker.next
         prev_node.next = new_node
         new_node.next = seeker
-        print("Node '" + str(seeker.node_id) + "' added Successfully at index '" +str(index) + "'")
+        print("Node '" + str(seeker.node_id) + "' added Successfully at index '" + str(index) + "'")
         while seeker.next is not None:
             seeker.node_id = seeker.node_id + 1
             seeker = seeker.next
         seeker.node_id = seeker.node_id + 1
-        seeker = None
 
 # ----------------------------------------------------------------------------------------------------------------------
     # this method will display the linked list
@@ -88,6 +85,10 @@ class LinkedList:
             table.add_row([seeker.node_id, seeker.data])
             seeker = seeker.next
         print(table)
+
+
+# ----------------------------------------------------------------------------------------------------------------------
+# main menu of the program where user will select functions that he want to perform
 def main_menu():
     choice = int(input("1: Create LikedList\n2: Add Nodes to the end\n3: Delete Nodes from the end\n4: Add Nodes at target Position\n5: Delete Nodes from target position(s)\n6: Display LinkedList\n7: Quit\nchoose between 1 to 7: "))
     if choice == 1:
@@ -95,22 +96,22 @@ def main_menu():
             decision = int(input("1: Let AI create a LinkedLis for you automatically \n2: Create a LinkedList Manually:\n\t\t\t\t: "))
             if decision == 1:
                 length = int(input("How many nodes will your list contain?\n"))
-                node_ID = int(input("Enter starting ID of the list: "))
+                node_id = int(input("Enter starting ID of the list: "))
                 x = int(input("Data starting Point: "))
-                while node_ID <= length:
-                    ListA.add_node(node_ID, x)
-                    print("VALUE " + str(x) + " added to " + str(node_ID) + " node")
-                    node_ID = node_ID + 1
+                while node_id <= length:
+                    ListA.add_node(node_id, x)
+                    print("VALUE " + str(x) + " added to " + str(node_id) + " node")
+                    node_id = node_id + 1
                     x = x + 15
                 main_menu()
             elif decision == 2:
                 length = int(input("How many nodes will your list contain?\n"))
-                node_ID = int(input("Enter starting ID of the list: "))
-                while node_ID <= length:
-                    x = int(input("Node ID " + str(node_ID) + " Data: "))
-                    ListA.add_node(node_ID, x)
-                    print("VALUE " + str(x) + " added to " + str(node_ID) + " node")
-                    node_ID = node_ID + 1
+                node_id = int(input("Enter starting ID of the list: "))
+                while node_id <= length:
+                    x = int(input("Node ID " + str(node_id) + " Data: "))
+                    ListA.add_node(node_id, x)
+                    print("VALUE " + str(x) + " added to " + str(node_id) + " node")
+                    node_id = node_id + 1
                 main_menu()
             else:
                 print("You Entered Wrong Pointer choose again")
@@ -121,12 +122,41 @@ def main_menu():
                     main_menu()
                 else:
                     print("'You are so DUMB (ノへ￣、) ReRun the code now")
+        dec()
     elif choice == 2:
-        data = int(input("Enter Data:"))
-        ListA.add_node()
+        data = int(input("Enter Data that is to be added: "))
+        node_index = int(input("Enter the index of the Node: "))
+        ListA.add_node(node_index, data)
+        ListA.add_node(1, data)
+        ListA.show_list()
+        table.clear()
     elif choice == 3:
+        decision = int(input("Are you sure you want to delete Node from the end of this LinkedList? 1= YES 0= NO\n:  "))
+        if decision == 1:
+            ListA.del_final_node()
+            ListA.show_list()
+            table.clear()
+        elif decision == 0:
+            main_menu()
+        else:
+            print("Wrong choice")
+            main_menu()
     elif choice == 4:
+        target = int(input("Enter the index of the node that you want deleted"))
+        data = int(input("What data is it that you want to add to the Node: "))
+        ListA.add_node(target, data)
     elif choice == 5:
+        target = int(input("Enter the index of the node that you want deleted"))
+        decision = int(input("Are you sure you want to delete this Node? 1= YES 0= NO\n:  "))
+        if decision == 1:
+            ListA.del_target_node(target)
+            ListA.show_list()
+            table.clear()
+        elif decision == 0:
+            main_menu()
+        else:
+            print("Wrong choice")
+            main_menu()
     elif choice == 6:
         ListA.show_list()
         table.clear()
@@ -138,6 +168,4 @@ def main_menu():
 if __name__ == '__main__':
     table = PrettyTable(["Node_ID", "Data"])
     ListA = LinkedList()
-
-    # main_menu()
-
+    main_menu()
