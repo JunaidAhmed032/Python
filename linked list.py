@@ -81,7 +81,7 @@ class LinkedList:
     # this method will display the linked list
     def show_list(self):
         seeker = self.head
-        while seeker is not None:
+        while seeker.next is not None:
             table.add_row([seeker.node_id, seeker.data])
             seeker = seeker.next
         print(table)
@@ -130,6 +130,7 @@ def main_menu():
         ListA.add_node(1, data)
         ListA.show_list()
         table.clear()
+        main_menu()
     elif choice == 3:
         decision = int(input("Are you sure you want to delete Node from the end of this LinkedList? 1= YES 0= NO\n:  "))
         if decision == 1:
@@ -142,9 +143,10 @@ def main_menu():
             print("Wrong choice")
             main_menu()
     elif choice == 4:
-        target = int(input("Enter the index of the node that you want deleted"))
+        target = int(input("Enter the index of the target node: "))
         data = int(input("What data is it that you want to add to the Node: "))
         ListA.add_node(target, data)
+        main_menu()
     elif choice == 5:
         target = int(input("Enter the index of the node that you want deleted"))
         decision = int(input("Are you sure you want to delete this Node? 1= YES 0= NO\n:  "))
